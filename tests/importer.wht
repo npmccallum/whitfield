@@ -1,0 +1,5 @@
+foo(a, b, c)(x, y, z) {
+  x = a + b + A;
+  y = b + c + A;
+  z = a + c + A;
+}
