@@ -1,0 +1,12 @@
+case "$DISTRO" in
+    debian:*|ubuntu:*)
+        apt-get clean
+        while ! apt-get update; do sleep 5; done
+        apt-get -y install clang python3.6 python3-pip
+        python3.6 `which pip3` install pytest pytest-benchmark pyparsing
+        ;;
+    fedora:*)
+        dnf install -y clang python3-pip
+        pip3 install pytest pytest-benchmark pyparsing
+        ;;
+esac

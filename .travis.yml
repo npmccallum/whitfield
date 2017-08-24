@@ -1,0 +1,21 @@
+services: docker
+language: python
+
+env:
+    matrix:
+        - DISTRO=fedora:latest
+        - DISTRO=debian:unstable
+
+before_install:
+    - docker create --name=wht -t -v `pwd`:/tmp/build -w /tmp/build $DISTRO /bin/cat
+    - docker start wht
+
+install:
+    - docker exec wht /usr/bin/env DISTRO=$DISTRO ./.travis.install
+
+script:
+    - docker exec wht /usr/bin/env DISTRO=$DISTRO ./.travis.script
+
+after_script:
+    - docker kill wht
+    - docker rm wht
